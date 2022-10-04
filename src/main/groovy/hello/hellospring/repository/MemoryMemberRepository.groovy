@@ -1,10 +1,12 @@
 package hello.hellospring.repository
 
 import hello.hellospring.domain.Member
+import org.springframework.stereotype.Repository
 
-class MemoryMemberRepository implements hello.hellospring.repository.MemberRepository {
+@Repository
+class MemoryMemberRepository implements MemberRepository {
 
-    // don't consider concurrentcy issue
+    // don't consider concurrency issue
     private static Map<Long, Member> store = [:] // id, member
     private static long sequence = 0L
 

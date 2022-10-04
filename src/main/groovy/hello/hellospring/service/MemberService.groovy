@@ -2,13 +2,22 @@ package hello.hellospring.service
 
 import hello.hellospring.domain.Member
 import hello.hellospring.repository.MemberRepository
-import hello.hellospring.repository.MemoryMemberRepository
-
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.stereotype.Service
+// 정형화된 로직
+// Contoller를 통해서 외부 요청을 받고
+// Service에서는 비지니로직을 처리하고
+// Repository에서 데이터를 저장한다
+@Service
 class MemberService {
 
-    private final MemberRepository memberRepository = new MemoryMemberRepository()
+    private final MemberRepository memberRepository
 
-    /**
+    @Autowired
+    MemberService(MemberRepository memberRepository) {
+        this.memberRepository = memberRepository
+    }
+/**
      * 회원 가입
      * @param member
      * @return
@@ -34,7 +43,7 @@ class MemberService {
     }
 
     private validateDuplicatedMember(Member member) {
-        memberRepository.findById(member.id)
+        memberRepository.findByName(member.name)
                 .ifPresent(m -> {
                     throw new IllegalStateException("이미 존재하는 회원 입니다")
                 })
