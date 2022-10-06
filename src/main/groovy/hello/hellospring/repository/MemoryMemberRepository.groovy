@@ -3,7 +3,6 @@ package hello.hellospring.repository
 import hello.hellospring.domain.Member
 import org.springframework.stereotype.Repository
 
-@Repository
 class MemoryMemberRepository implements MemberRepository {
 
     // don't consider concurrency issue

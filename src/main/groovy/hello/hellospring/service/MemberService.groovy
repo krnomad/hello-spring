@@ -8,12 +8,10 @@ import org.springframework.stereotype.Service
 // Contoller를 통해서 외부 요청을 받고
 // Service에서는 비지니로직을 처리하고
 // Repository에서 데이터를 저장한다
-@Service
 class MemberService {
 
     private final MemberRepository memberRepository
 
-    @Autowired
     MemberService(MemberRepository memberRepository) {
         this.memberRepository = memberRepository
     }
