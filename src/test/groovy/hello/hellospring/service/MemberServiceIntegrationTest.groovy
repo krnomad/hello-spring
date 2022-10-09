@@ -1,31 +1,23 @@
 package hello.hellospring.service
 
 import hello.hellospring.domain.Member
+import hello.hellospring.repository.MemberRepository
 import hello.hellospring.repository.MemoryMemberRepository
 import org.junit.jupiter.api.AfterEach
-import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.transaction.annotation.Transactional
 
-import static org.junit.jupiter.api.Assertions.*
+import static org.junit.jupiter.api.Assertions.assertThrows
 
-// 스프링 없이 unit test - 단위 테스트가 나오는 것이 좋은 테스트 구조이다.
-class MemberServiceTest {
-
-    MemberService memberService
-    MemoryMemberRepository memberRepository
-
-    @BeforeEach
-    void setUp() {
-        memberRepository = new MemoryMemberRepository()
-        // DI
-        memberService = new MemberService(memberRepository)
-    }
-
-    @AfterEach
-    void tearDown() {
-        memberRepository.clearStore()
-    }
+// Spring까지 다 사용하는 통합테스트 - integration test!
+@SpringBootTest // 스프링 컨테이너와 테스트를 함께 실행! (DI사용가능)
+@Transactional // test를 시작하기 전에 transaction을 걸고 테스트가 끝나면 rollback해버림 - setup, before_each가 필요 없음
+class MemberServiceIntegrationTest {
+    @Autowired MemberService memberService
+    @Autowired MemberRepository memberRepository
 
     @Test
     void '회원가입'() {
