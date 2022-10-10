@@ -5,3 +5,7 @@ create table member
     name varchar(255),
     primary key (id)
 );
+ALTER USER SA SET PASSWORD '';
+
+# jdbc:h2:tcp://localhost/~//test
+# org.h2.Driver
